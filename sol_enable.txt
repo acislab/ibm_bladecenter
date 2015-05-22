@@ -1,0 +1,26 @@
+From: http://www-01.ibm.com/support/knowledgecenter/SS9H2Y_4.0.1/com.ibm.dp.xi.doc/administratorsguide.xi50171.htm%23webgui_enableserialoverlanforbladeservers_task
+
+To enable serial over LAN:
+
+    1. Restart the blade server and immediately give the blade server control of the BladeCenter unit shared keyboard, video, and mouse (KVM) ports.
+        a. If you are managing the blade server from the BladeCenter system console, press the KVM select button on the blade server.
+        b. If you are managing the blade server from a remote location, see the IBM BladeCenter Management Module User’s Guide or IBM BladeCenter Management Module Command-Line Interface Reference Guide for information and instructions.
+    2. When the prompt Press <F1> Setup is displayed, press F1. If you have set an administrator password, you must type the administrator password to access the full Setup-utility menu. If you do not type the administrator password, a limited Setup-utility menu is available.
+    3. Select System Settings and then press Enter.
+    4. Select Devices and I/O Ports and then press Enter.
+    5. Select Console Redirection Settings and then press Enter.
+    6. If you are using a serial breakout cable, set COM Port 1 to Enable; otherwise, set it to Disable.
+    7. Set COM Port 2 to Enable.
+    8. Set Remote Console to Enable.
+    9. Set Legacy Option ROM Display to COM Port 2.
+    10. Set the following COM2 Settings:
+        a. Make sure that the Baud Rate is set to 115200.
+
+        The settings for Data Bits, Parity, and Stop Bits are static and cannot be changed.
+
+        b. Set Terminal Emulation to ANSI (default) or VT100, depending on your system configuration.
+        c. Set Active After Boot to Enable.
+        d. Set Flow Control to Hardware.
+    11. Press Esc four times; then, press Y, when prompted, to save settings and restart the Blade server.
+
+After the blade server restarts, you can establish a serial over LAN session from the AMM command line.
