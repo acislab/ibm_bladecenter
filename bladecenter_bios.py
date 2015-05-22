@@ -225,6 +225,11 @@ b_info = getOutput(channel)
 # Set the timeout to 1 hour so things like the diagnostics boot and config don't time out
 run(channel, 'tcpcmdmode -t 3600 -T system:mm[0]')
 
+
+# Set the boot device to the media tray USB and move the media tray to this 
+# blade
+run(channel, 'bootseq cd -T system:blade[8]')
+run(channel, 'mt -b 8 -T system')
 # Power cycle and connect a console for commands
 run(channel, 'power -cycle -T system:blade[8]')
 run(channel, 'console -o -l -T system:blade[8]')
@@ -233,7 +238,7 @@ run(channel, 'console -o -l -T system:blade[8]')
 #load_defaults(channel)
 
 # For debugging, will just print output of terminal
-#printDelayedOutput(channel, 10000)
+printDelayedOutput(channel, 10000)
 
 
 
@@ -244,7 +249,8 @@ run(channel, 'console -o -l -T system:blade[8]')
 
 # expect, power cycle
 # set media tray to none to indicate the firmware is done
-
+run(channel, 'bootseq cd usb hd0 nw -T system:blade[8]')
+run(channel, 'mt -b 0 -T system')
 
 # Set BIOS options
 #if wait_for(channel, '<F1> Setup', 9999):
@@ -266,7 +272,7 @@ if wait_for(channel, '<F2> Diagnostics', 9999):
         press(channel, 'escape')
         if wait_for(channel, 'Starting DSA Preboot', 9999):
             # Now we enter a Linux kernel that does not have a serial terminal set up
-            # have to start guessing.
+            # so we can't do anything further
             time.sleep(90)
             run(channel, 'cmd') # command line interface
             time.sleep(120)
