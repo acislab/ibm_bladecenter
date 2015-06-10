@@ -24,6 +24,18 @@ def strip_escape(string=''):
         string = string[0:start] + string[end:]
     return string
 
+
+def printDelayedOutput(channel, timeout):
+    t = 0
+    while not channel.recv_ready():
+        time.sleep(1)
+        while channel.recv_ready():
+            print strip_escape(channel.recv(1024))
+
+        t += 1
+        if (t > timeout):
+            return True
+
 def wait_for(channel, str, timeout):
     t = 0
     while not channel.recv_ready():
@@ -50,7 +62,7 @@ def run(channel, cmd):
     channel.send(cmd + "\r\n")
     return get_output(channel)
 
-def press(channel, k):
+def press(channel, k, wait_for_txt=""):
     # https://github.com/gooli/termenu/blob/master/keyboard.py
     keys = {
                'up':     '\x1b[A',
@@ -64,7 +76,13 @@ def press(channel, k):
                'F2':     '\x1bOQ'
            }
     channel.send(keys[k])
-    txt = get_output(channel)
+    
+    if wait_for_txt:
+        wait_for(channel, wait_for_txt, 30)
+        txt = get_output(channel)
+    else:
+        # eat any text that is generated
+        txt = get_output(channel)
 
     return txt
 
