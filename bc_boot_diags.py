@@ -20,9 +20,12 @@ ssh.run(chan, 'bootseq cd usb hd0 nw')
 ssh.run(chan, 'power -cycle')
 ssh.run(chan, 'console -o -l')
 
-# Enter BIOS
-if ssh.wait_for(chan, '<F1> Setup', 900):
-    ssh.press(chan, 'F1')
+# Enter Diags
+if ssh.wait_for(chan, '<F2> Diagnostics', 900):
+    ssh.press(chan, 'F2')
+    
+    if ssh.wait_for(chan, 'Esc=ExitMemoryTest', 900):
+        ssh.press(chan, 'escape')
     
 chan.close()
 sess.close()

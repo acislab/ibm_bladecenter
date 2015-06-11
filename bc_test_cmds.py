@@ -21,3 +21,6 @@ ssh.run(chan, 'console -o -l')
 bios.load_defaults(chan)
 bios.enable_sol(chan)
 bios.enable_vtd(chan)
+
+chan.close()
+sess.close()

@@ -17,10 +17,6 @@ def enable_vtd(chan):
     ssh.press(chan, 'up')
     ssh.press(chan, 'enter')
     ssh.press(chan, 'escape', 'ystem Setting')
-    #ssh.press(chan, 'escape')
-    # One extra escape, seems to be a timing bug somewhere
-    # wait_for would be better but the ANSI stripper seems not 
-    # quite right and this screen messes it up
     r = ssh.press(chan, 'escape', 'ystem Configuration and Boot Managemen')
     return r
 
@@ -92,11 +88,8 @@ def enable_sol(chan):
     ssh.press(chan, 'down')
     ssh.press(chan, 'enter')
     # Back to main page
-    #time.sleep(1)
     ssh.press(chan, 'escape', 'evices and I/O Port')
-    #time.sleep(1)
     ssh.press(chan, 'escape', 'ystem Setting')
-    #time.sleep(1)
     ssh.press(chan, 'escape', 'ystem Configuration and Boot Managemen')
 
 def save_exit(chan):

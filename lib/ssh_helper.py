@@ -49,8 +49,10 @@ def wait_for(channel, str, timeout):
             return False
 
 def get_output(channel):
-    while not channel.recv_ready():
+    watchdog = 0
+    while not channel.recv_ready() and watchdog < 10:
         time.sleep(1)
+        watchdog += 1
         
     txt = ""
     while channel.recv_ready():
