@@ -58,6 +58,7 @@ print fmt_str % \
     ("Slot", "Name", "Mach type/model", "FRU no.", "Mach serial number", "MAC Address 1", "MAC Address 2", "FW/BIOS", "Diagnostics", "Mgmt Processor")
 
 for i in range(1,14+1):
+    s_info = {}
     cmd = "env -T system:blade[%s]\r\n" % i
     try:
         run(channel, cmd)

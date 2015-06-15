@@ -15,10 +15,21 @@ ssh.get_output(chan)
 
 ssh.run(chan, 'tcpcmdmode -t 3600 -T system:mm[0]')
 ssh.run(chan, 'env -T system:blade[' + blade + ']')
+# Set the boot sequence to our default
+ssh.run(chan, 'bootseq cd usb hd0 nw')
+ssh.run(chan, 'power -cycle')
 ssh.run(chan, 'console -o -l')
 
-
-bios.enable_quadport(chan)
+# Set BIOS options
+if ssh.wait_for(chan, '<F1> Setup', 900):
+    ssh.press(chan, 'F1')
+    time.sleep(5)
+    bios.disable_quadport(chan)
+    time.sleep(5)
+    bios.save_exit(chan)
+    time.sleep(15)
+    # Power off when done - doesn't seem to work...
+    ssh.run(chan, 'power -off')
 
 chan.close()
 sess.close()

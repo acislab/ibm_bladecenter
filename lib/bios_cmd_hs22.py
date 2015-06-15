@@ -4,6 +4,63 @@ import ssh_helper as ssh
 # wait for test leaves off the first and last chars because sometimes they 
 # split lines
 
+def disable_quadport(chan):
+    # Disable the quad port network adapter because the kickstart process 
+    # flip-flops what is eth0
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    # now on Enable/Disable onboard devices page
+    # disable first expansion card
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    ssh.press(chan, 'up')
+    ssh.press(chan, 'enter')
+    # disable second expansion card
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    ssh.press(chan, 'up')
+    ssh.press(chan, 'enter')
+    ssh.press(chan, 'escape', 'evices and I/O Port')
+    ssh.press(chan, 'escape', 'ystem Setting')
+    r = ssh.press(chan, 'escape', 'ystem Configuration and Boot Managemen')
+    return r
+
+def enable_quadport(chan):
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    # now on Enable/Disable onboard devices page
+    # disable first expansion card
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    # disable second expansion card
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    ssh.press(chan, 'down')
+    ssh.press(chan, 'enter')
+    ssh.press(chan, 'escape', 'evices and I/O Port')
+    ssh.press(chan, 'escape', 'ystem Setting')
+    r = ssh.press(chan, 'escape', 'ystem Configuration and Boot Managemen')
+    return r
+  
+
 def enable_vtd(chan):
     ssh.press(chan, 'down')
     ssh.press(chan, 'enter')

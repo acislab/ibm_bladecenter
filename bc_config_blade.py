@@ -27,10 +27,11 @@ if ssh.wait_for(chan, '<F1> Setup', 900):
     bios.load_defaults(chan)
     bios.enable_sol(chan)
     bios.enable_vtd(chan)
+    bios.disable_quadport(chan)
     time.sleep(5)
     bios.save_exit(chan)
     time.sleep(15)
-    # Power off when done
+    # Power off when done - doesn't seem to work...
     ssh.run(chan, 'power -off')
 
 chan.close()
