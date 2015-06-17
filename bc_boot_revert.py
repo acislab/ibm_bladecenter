@@ -12,7 +12,6 @@ chan, sess = ssh.get_channel(host, pw)
 ssh.get_output(chan)
 
 ssh.run(chan, 'tcpcmdmode -t 3600 -T system:mm[0]')
-ssh.run(chan, 'mt -b ' + blade)
 ssh.run(chan, 'env -T system:blade[' + blade + ']')
 ssh.run(chan, 'bootseq cd usb hd0 nw')
 
