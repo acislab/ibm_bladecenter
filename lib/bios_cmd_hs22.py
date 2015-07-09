@@ -20,6 +20,7 @@ def disable_quadport(chan):
     ssh.press(chan, 'down')
     ssh.press(chan, 'down')
     ssh.press(chan, 'down')
+    ssh.press(chan, 'down')
     ssh.press(chan, 'enter')
     ssh.press(chan, 'up')
     ssh.press(chan, 'enter')
@@ -44,6 +45,7 @@ def enable_quadport(chan):
     ssh.press(chan, 'enter')
     # now on Enable/Disable onboard devices page
     # disable first expansion card
+    ssh.press(chan, 'down')
     ssh.press(chan, 'down')
     ssh.press(chan, 'down')
     ssh.press(chan, 'down')
